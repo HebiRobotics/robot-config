@@ -17,7 +17,7 @@ The robot.cfg files are yaml files that contain the following information:
 
 ### Names and Families (required)
 
-These can be either given as a single string (applied to all modules in a group), or a list of strings.  For example:
+`names` must exist, and be a list of strings.  `families` must exist, and can be either given as a single string (applied to all modules in a group), or a list of strings.  For example:
 
 ```
 names: ["J1_base", "J2_shoulder", "J3_elbow", "J4_wrist1", "J5_wrist2", "J6_wrist3"]
@@ -28,7 +28,7 @@ Note that yaml strings do not need to be enclosed in quotation marks.
 
 ### HRDF file (optional)
 
-The HRDF file is parsed as relative to the current working directory of the executable.  Example:
+The HRDF file is parsed as needed, but is assumed relative to the current working directory of the executable _at the time of parsing the config file_.  Example:
 
 ```
 hrdf: "hrdf/A-2085-06.hrdf"
@@ -36,13 +36,29 @@ hrdf: "hrdf/A-2085-06.hrdf"
 
 ### Gains files (optional)
 
-The gains filenames are retrievable at run time through a loaded RobotConfig object, and any default gains (labeled with the 'default' key if multiple are provided) are automatically set by `Arm` code objects when initializing the `Arm` object.  Example:
+The gains filenames are retrievable at run time through a loaded RobotConfig object, and any default gains (defined with the 'default' key if multiple are provided) are automatically set by `Arm` code objects when initializing the `Arm` object.  These files are parsed as needed, but are assumed relative to the current working directory of the executable _at the time of parsing the config file_.  Example:
 
 ```
 gains:
   default: "gains/A-2085-06.xml"
   soft: "gains/A-2085-06-soft.xml"
 ```
+
+or
+
+```
+gains:
+  hard: "gains/A-2085-06.xml"
+  soft: "gains/A-2085-06-soft.xml"
+```
+
+or 
+
+```
+gains: "gains/A-2085-06.xml"
+```
+
+(Note -- the second example has no default gains, and the third example stores the `gains` file with the `default` key)
 
 ### Plugins (optional)
 
@@ -84,7 +100,12 @@ TBD
 
 ### User data entries
 
-TBD
+Any entry that is not `names`, `families`, `hrdf`, `gains`, or `plugins` is attempted to be parsed as a string value; if it can be, then it will be stored in a "user data" parameter map.  Example:
+
+```
+robot_display_name: "Friendly Bot"
+max_power: "25.9"
+```
 
 ## Full examples
 
