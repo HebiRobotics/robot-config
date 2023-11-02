@@ -100,7 +100,7 @@ TBD
 
 ### User data entries
 
-The optional `user_data` field may contain key:value data that gets stored in a "user data" parameter map. The keys must be alphanumeric and start with a letter. Depending on the API, the values may be exposed as strings or as dynamic types. Example:
+The optional `user_data` field may contain key:value data that gets stored in a "user data" parameter map. The keys must be alphanumeric with optional underscores and do not start with a number. Depending on the API, the values may be exposed as strings or as dynamic types. Example:
 
 ```
 user_data:
