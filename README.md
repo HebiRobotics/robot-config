@@ -100,7 +100,7 @@ TBD
 
 ### User data entries
 
-The optional `user_data` field may contain arbitrary key:value data that will get stored in a "user data" parameter map. Example:
+The optional `user_data` field may contain key:value data that gets stored in a "user data" parameter map. The keys must be alphanumeric and start with a letter. Depending on the API, the values may be exposed as strings or as dynamic types. Example:
 
 ```
 user_data:
@@ -110,7 +110,7 @@ user_data:
 
 ### Other entries
 
-Any entry that is not `names`, `families`, `hrdf`, `gains`, `plugins`, or `user_data` is silently discarded and ignored. (TODO: good for prototyping, but do we want to add a flag to switch between a strict mode and a silent ignore?)
+Any entry that is not `names`, `families`, `hrdf`, `gains`, `plugins`, or `user_data` results in an error.
 
 ## Full examples
 
