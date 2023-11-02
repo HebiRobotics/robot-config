@@ -106,6 +106,8 @@ The optional `user_data` field may contain key:value data that gets stored in a 
 user_data:
   robot_display_name: "Friendly Bot"
   max_power: "25.9"
+  scale: 0.9
+  enable_logging: true
 ```
 
 ### Other entries
