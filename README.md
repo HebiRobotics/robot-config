@@ -17,7 +17,7 @@ The robot.cfg files are yaml files that contain the following information:
 
 ### Names and Families (required)
 
-`names` must exist, and be a list of strings.  `families` must exist, and can be either given as a single string (applied to all modules in a group), or a list of strings.  For example:
+`names` and `families` must exist and be a single string, or a list of strings. A singular family gets applied to all modules in a group.  For example:
 
 ```
 names: ["J1_base", "J2_shoulder", "J3_elbow", "J4_wrist1", "J5_wrist2", "J6_wrist3"]
@@ -100,12 +100,19 @@ TBD
 
 ### User data entries
 
-Any entry that is not `names`, `families`, `hrdf`, `gains`, or `plugins` is attempted to be parsed as a string value; if it can be, then it will be stored in a "user data" parameter map.  Example:
+The optional `user_data` field may contain key:value data that gets stored in a "user data" parameter map. The keys must be alphanumeric with optional underscores and do not start with a number. Depending on the API, the values may be exposed as strings or as dynamic types. Example:
 
 ```
-robot_display_name: "Friendly Bot"
-max_power: "25.9"
+user_data:
+  robot_display_name: "Friendly Bot"
+  max_power: "25.9"
+  scale: 0.9
+  enable_logging: true
 ```
+
+### Other entries
+
+Any entry that is not `names`, `families`, `hrdf`, `gains`, `plugins`, or `user_data` results in an error.
 
 ## Full examples
 
