@@ -67,15 +67,49 @@ The `plugins` list allows for storing `Arm` object plugin configurations.  Each 
 ```
 plugins:
   - name: 'gravityCompensation'
-    type: GravityCompensation
+    type: GravityCompensationEffort
+    # optional (shown w/ defaults)
+    enabled: true
+    ramp_time: 0
+    imu_feedback_index: 0
+    imu_frame_index: 0
+    imu_rotation_offset: [1, 0, 0, 0, 1, 0, 0, 0, 1]
+
   - name: 'dynamicCompensation'
-    type: DynamicCompensation
+    type: DynamicCompensationEffort
+    # optional (shown w/ defaults)
+    enabled: true
+    ramp_time: 0
+
   - name: 'impedanceController'
     type: ImpedanceController
-    gainsInEndEffector: true
+    gains_in_end_effector_frame: true
     # HOLD POSITION AND ROTATION - BUT ALLOW MOTION ALONG/AROUND Z-AXIS
     kp: [500, 500, 100, 0,  10, 0]  # (N/m) or (Nm/rad)
     kd: [ 10,  10,   1, 0, 0.1, 0]  # (N/(m/sec)) or (Nm/(rad/sec))
+    # optional (shown w/ defaults)
+    enabled: true
+    ramp_time: 0
+    ki: [ 0, 0, 0, 0, 0, 0]
+    i_clamp: [ 0, 0, 0, 0, 0, 0]
+
+  - name: 'effortOffset'
+    type: EffortOffset
+    offset: [0, -1.0, 0, 0, 0, 0] # should match size of arm group
+    # optional (shown w/ defaults)
+    enabled: true
+    ramp_time: 0
+
+  - name: 'doubledJoint'
+    type: DoubledJoint
+    index: 1
+    family: 'HEBI'
+    name: 'J2B_shoulder
+    # optional (shown w/ defaults)
+    enabled: true
+    ramp_time: 0
+    mirror: true
+
 ```
 
 Note that comments can be added in the yaml file using the `#` character.
