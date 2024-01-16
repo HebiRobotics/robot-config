@@ -65,13 +65,15 @@ gains: "gains/A-2085-06.xml"
 
 ### Plugins (optional)
 
-The `plugins` list allows for storing `Arm` plugin configurations.  Each listed plugin is parsed when a loaded `RobotConfig` object is used to create an `Arm` object, and as such only the parameter types will be validated when creating the `RobotConfig` object. Each plugin needs at least a `type` and a `name`, and may have an arbitrary number of additional parameters.
+The `plugins` list allows for storing `Arm` plugin configurations.  Each listed plugin is parsed when a loaded `RobotConfig` object is used to create an `Arm` object, and as such only the parameter types will be validated when creating the `RobotConfig` object. Each plugin requires at least a `type` and a `name` parameter, and it is recommended to always set a `ramp_time`. They can be disabled by setting `disabled` to false, and may have an arbitrary number of additional parameters.
 
 The `type` field for each plugin is used to determine which plugin to use.  If this plugin type is not supported by an API, there should be an error when creating the `Arm` object using the `RobotConfig` object.
 
 The `name` field can be used as a key for retrieving a specific plugin at run time.
 
-TODO: `ramp_time` and `enabled`
+The `ramp_time` field defines the time in seconds that it should take to scale the effect. The default `0` signifies no scaling and may result in sudden accelerations and jerks.
+
+The `enabled` field can be used to start a plugin in a deactivated state. It is often simpler to disable a plugin instead of commenting it out.
 
 The order of the plugins in the yaml file dictates how they are ordered when creating an `Arm` object.
 
@@ -83,15 +85,16 @@ The remaining items in each plugin depend on the plugin itself, and are evaluate
 5. A list of strings
 6. A list of bools
 
-Currently supported plugins are:
+Below is a list of the currently supported plugins. The default value of optional parameters is in brackets. Required parameters are marked with `*`. 
 
-| Type                             | Parameters                                                     | Description                                                                                                                                                                                                                                                     |
-|----------------------------------|----------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| **GravityCompensationEffort**    | imu_feedback_index<br/>imu_frame_index<br/>imu_rotation_offset | Adds efforts to compensate for gravity                                                                                                                                                                                                                          |
-| **DynamicsCompensationEffort**   |                                                                | Adds efforts to compensate for joint accelerations                                                                                                                                                                                                              |
-| **EffortOffset**   | offset                                                         | Adds efforts to compensate for static offsets due to hardware configurations such as a mechanical spring assist.                                                                                                                                                |
-| **ImpedanceController**   | gains_in_end_effector_frame<br/>kp<br/>ki<br/>kd<br/>i_clamp    | Adds efforts to result in the desired end-effector impedances.                                                                                                                                                                                                  |
-| **DoubledJoint**   | group_family<br/>group_name<br/>index<br/>mirror               | Copies actuator commands to assist with a second actuator. This simplifies working with double shoulder configurations while treating an arm as a serial chain. |
+| Type                           | Parameters                                                                        | Description                                                                                                                                                     |
+|--------------------------------|-----------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| **Common Parameters**          | type*<br/>name*<br/>ramp_time (0)<br/>enabled (true)                              |                                                                                                                                                                 |
+| **GravityCompensationEffort**  | imu_feedback_index (0)<br/>imu_frame_index (0)<br/>imu_rotation_offset (identity) | Adds efforts to compensate for gravity                                                                                                                          |
+| **DynamicsCompensationEffort** |                                                                                   | Adds efforts to compensate for joint accelerations. The masses are determined from the robot model.                                                             |
+| **EffortOffset**               | offset                                                                            | Adds efforts to compensate for static offsets due to hardware configurations such as a mechanical spring assist.                                                |
+| **ImpedanceController**        | gains_in_end_effector_frame*<br/>kp*<br/>kd*<br/>ki (zeros)<br/>i_clamp (zeros)   | Adds efforts to result in the desired end-effector impedances.                                                                                                  |
+| **DoubledJoint**               | group_family*<br/>group_name*<br/>index*<br/>mirror (true)                        | Copies actuator commands to assist with a second actuator. This simplifies working with double shoulder configurations while treating an arm as a serial chain. |
 
 Examples:
 
@@ -126,10 +129,6 @@ plugins:
     offset: [0, -7, 0, 0, 0, 0]
 ```
 
-### Paths and waypoints:
-
-TBD
-
 ### User data entries
 
 The optional `user_data` field may contain key:value data that gets stored in a "user data" parameter map. The keys must be alphanumeric with optional underscores and do not start with a number. Depending on the API, the values may be exposed as strings or as dynamic types. Example:
@@ -141,6 +140,10 @@ user_data:
   scale: 0.9
   enable_logging: true
 ```
+
+### Paths and waypoints:
+
+TBD
 
 ### Other entries
 
