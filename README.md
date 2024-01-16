@@ -85,16 +85,19 @@ The remaining items in each plugin depend on the plugin itself, and are evaluate
 5. A list of strings
 6. A list of bools
 
-Below is a list of the currently supported plugins. The default value of optional parameters is in brackets. Required parameters are marked with `*`. 
+Below is a list of the currently supported plugins. 
+
+ - Required parameters are marked in **`bold`**.
+ - The default value of optional parameters is in `(brackets)`. 
 
 | Type                           | Parameters                                                                        | Description                                                                                                                                                     |
 |--------------------------------|-----------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| **Common Parameters**          | type*<br/>name*<br/>ramp_time (0)<br/>enabled (true)                              |                                                                                                                                                                 |
-| **GravityCompensationEffort**  | imu_feedback_index (0)<br/>imu_frame_index (0)<br/>imu_rotation_offset (identity) | Adds efforts to compensate for gravity                                                                                                                          |
+| **Common Parameters**          | **`type`** <br> **`name`** <br> `ramp_time (0)` <br> `enabled (true)`                              |                                                                                                                                                                 |
+| **GravityCompensationEffort**  | `imu_feedback_index (0)` <br> `imu_frame_index (0)` <br> `imu_rotation_offset (identity)` | Adds efforts to compensate for gravity                                                                                                                          |
 | **DynamicsCompensationEffort** |                                                                                   | Adds efforts to compensate for joint accelerations. The masses are determined from the robot model.                                                             |
-| **EffortOffset**               | offset                                                                            | Adds efforts to compensate for static offsets due to hardware configurations such as a mechanical spring assist.                                                |
-| **ImpedanceController**        | gains_in_end_effector_frame*<br/>kp*<br/>kd*<br/>ki (zeros)<br/>i_clamp (zeros)   | Adds efforts to result in the desired end-effector impedances.                                                                                                  |
-| **DoubledJoint**               | group_family*<br/>group_name*<br/>index*<br/>mirror (true)                        | Copies actuator commands to assist with a second actuator. This simplifies working with double shoulder configurations while treating an arm as a serial chain. |
+| **EffortOffset**               | **`offset`**                                                                            | Adds efforts to compensate for static offsets due to hardware configurations such as a mechanical spring assist.                                                |
+| **ImpedanceController**        | **`gains_in_end_effector_frame`** <br> **`kp`** <br> **`kd`** <br> `ki (zeros)` <br> `i_clamp (zeros)`   | Adds efforts to result in the desired end-effector impedances.                                                                                                  |
+| **DoubledJoint**               | **`group_family`** <br> **`group_name`** <br> **`index`** <br> `mirror (true)`                        | Copies actuator commands to assist with a second actuator. This simplifies working with double shoulder configurations while treating an arm as a serial chain. |
 
 Examples:
 
