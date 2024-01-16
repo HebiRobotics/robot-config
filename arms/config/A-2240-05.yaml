@@ -1,4 +1,5 @@
 # R-Series 5-DoF Arm
+version: 1.0
 families: ["Arm"]
 names: ["J1_base", "J2_shoulder", "J3_elbow", "J4_wrist1", "J5_wrist2"]
 hrdf: "../hrdf/A-2240-05.hrdf"
@@ -14,6 +15,7 @@ plugins:
   # Kits with a gas spring need to add a shoulder compensation torque.
   # It should be around -7 Nm for most kits, but it may need to be tuned
   # for your specific setup.
-  #- name: 'gasSpringCompensation'
-  #  type: EffortOffset
-  #  effortOffset: [0, -7, 0, 0, 0]
+  - name: 'gasSpringCompensation'
+    type: EffortOffset
+    effortOffset: [0, -7, 0, 0, 0]
+    enabled: false

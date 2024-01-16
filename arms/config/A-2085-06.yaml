@@ -41,6 +41,6 @@ plugins:
   # for your specific setup.
   - type: EffortOffset
     name: gasSpringCompensation
-    ramp_time: 0
-    enabled: false # disabled by default as the default configuration ships without one
+    ramp_time: 1.0
     offset: [0, -7, 0, 0, 0, 0]
+    enabled: false # disabled by default as the default configuration ships without one
