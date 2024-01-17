@@ -95,17 +95,17 @@ Below is a list of the currently supported plugins.
 |Type |Required Fields |Optional Fields |Description
 
 |All Plugins
-| - `type` +
-- `name`
-| - `ramp_time (0)` +
-- `enabled (true)`
+| `type` +
+`name`
+| `ramp_time=0` +
+`enabled=true`
 |Fields that are used across all plugins below. See definitions above and the examples below for more detail.
 
 |`GravityCompensationEffort`
 |
-| - `imu_feedback_index (0)` +
-- `imu_frame_index (0)` +
-- `imu_rotation_offset (identity)`
+| `imu_feedback_index=0` +
+`imu_frame_index=0` +
+`imu_rotation_offset=identity`
 |Adds efforts to compensate for gravity
 
 |`DynamicsCompensationEffort`
@@ -114,23 +114,23 @@ Below is a list of the currently supported plugins.
 |Adds efforts to compensate for joint accelerations. The masses are determined from the robot model.
 
 |`EffortOffset`
-| - `offset` +
+| `offset` +
 |
 |Adds efforts to compensate for static offsets due to hardware configurations such as a mechanical spring assist.
 
 |`ImpedanceController`
-| - `gains_in_end_effector_frame` +
-- `kp` +
-- `kd`
-| - `ki (zeros)` +
-- `i_clamp (zeros)`
+| `gains_in_end_effector_frame` +
+`kp` +
+`kd`
+| `ki=zeros` +
+`i_clamp=zeros`
 |Adds efforts to result in the desired end-effector impedances.
 
 |`DoubledJoint`
-| - `group_family` +
-- `group_name` +
-- `index`
-| - `mirror (true)` +
+| `group_family` +
+`group_name` +
+`index`
+| `mirror=true` +
 |Copies actuator commands to assist with a second actuator. This simplifies working with double shoulder configurations while treating an arm as a serial chain.
 
 |===
