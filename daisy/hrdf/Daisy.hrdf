@@ -39,7 +39,7 @@
             <rigid-body mass="5.00"
                         com_trans="0.050 0.000 0.075"
                         output_trans="0.000 0.000 0.075"
-                        mesh_path="https://files.hebi.us/download/mesh/kits/chassis/A-2051-01_Export.obj"
+                        mesh_path="https://files.hebi.us/meshes/daisy/A-2051-01.obj"
                         mesh_trans="0 0 -0.019"/>
             <end-effector/>
         </output>
