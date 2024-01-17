@@ -66,13 +66,13 @@ gains: "gains/A-2085-06.xml"
 === Plugins (optional)
 The `plugins` list allows for storing `Arm` plugin configurations. Each listed plugin is parsed when a loaded `RobotConfig` object is used to create an `Arm` object, and as such only the parameter types will be validated when creating the `RobotConfig` object. Each plugin requires at least a `type` and a `name` parameter, and it is recommended to always set a `ramp_time`. They can be disabled by setting `disabled` to false, and may have an arbitrary number of additional parameters.
 
-The `type` field for each plugin is used to determine which plugin to use. If this plugin type is not supported by an API, there should be an error when creating the `Arm` object using the `RobotConfig` object.
+* The `type` field for each plugin is used to determine which plugin to use. If this plugin type is not supported by an API, there should be an error when creating the `Arm` object using the `RobotConfig` object.
 
-The `name` field can be used as a key for retrieving a specific plugin at run time.
+* The `name` field can be used as a key for retrieving a specific plugin at run time.
 
-The `ramp_time` field defines the time in seconds that it should take to scale the effect. The default `0` signifies no scaling and may result in sudden accelerations and jerks.
+* The `ramp_time` field defines the time in seconds that it should take to scale the effect. The default `0` signifies no scaling and may result in sudden accelerations and jerks.
 
-The `enabled` field can be used to start a plugin in a deactivated state. It is often simpler to disable a plugin instead of commenting it out.
+* The `enabled` field can be used to start a plugin in a deactivated state. It is often simpler to disable a plugin instead of commenting it out.
 
 The order of the plugins in the yaml file dictates how they are ordered when creating an `Arm` object.
 
@@ -92,13 +92,47 @@ Below is a list of the currently supported plugins.
 
 [options="header"]
 |===
-| Type | Parameters | Description
-| All Plugins | **Required:**\n- `type`\n- `name`\n**Optional:**\n- `ramp_time (0)`\n- `enabled (true)` | Fields that are used across all plugins below. See definitions above and the examples below for more detail.
-| `GravityCompensationEffort` | **Optional:**\n- `imu_feedback_index (0)`\n- `imu_frame_index (0)`\n- `imu_rotation_offset (identity)` | Adds efforts to compensate for gravity.
-| `DynamicsCompensationEffort` | | Adds efforts to compensate for joint accelerations. The masses are determined from the robot model.
-| `EffortOffset` | **Required:**\n- `offset` | Adds efforts to compensate for static offsets due to hardware configurations such as a mechanical spring assist.
-| `ImpedanceController` | **Required:**\n- `gains_in_end_effector_frame`\n- `kp\n-` `kd`\n**Optional:**\n- `ki (zeros)`\n- `i_clamp (zeros)` | Adds efforts to result in the desired end-effector impedances.
-| `DoubledJoint` | **Required:**\n- `group_family`\n- `group_name`\n- `index`\n**Optional:**\n- `mirror (true)` | Copies actuator commands to assist with a second actuator. This simplifies working with double shoulder configurations while treating an arm as a serial chain.
+|Type |Required Fields |Optional Fields |Description
+
+|All Plugins
+| - `type` +
+- `name`
+| - `ramp_time (0)` +
+- `enabled (true)`
+|Fields that are used across all plugins below. See definitions above and the examples below for more detail.
+
+|`GravityCompensationEffort`
+|
+| - `imu_feedback_index (0)` +
+- `imu_frame_index (0)` +
+- `imu_rotation_offset (identity)`
+|Adds efforts to compensate for gravity
+
+|`DynamicsCompensationEffort`
+|
+|
+|Adds efforts to compensate for joint accelerations. The masses are determined from the robot model.
+
+|`EffortOffset`
+| - `offset` +
+|
+|Adds efforts to compensate for static offsets due to hardware configurations such as a mechanical spring assist.
+
+|`ImpedanceController`
+| - `gains_in_end_effector_frame` +
+- `kp` +
+- `kd`
+| - `ki (zeros)` +
+- `i_clamp (zeros)`
+|Adds efforts to result in the desired end-effector impedances.
+
+|`DoubledJoint`
+| - `group_family` +
+- `group_name` +
+- `index`
+| - `mirror (true)` +
+|Copies actuator commands to assist with a second actuator. This simplifies working with double shoulder configurations while treating an arm as a serial chain.
+
 |===
 
 Examples:
