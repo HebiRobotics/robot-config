@@ -3,23 +3,23 @@ Documentation/examples for HEBI robot configuration files
 
 ## Overview
 
-The HEBI robot.cfg file format is designed to store configuration information about a system in a human-readable, run-time modifiable, cross-API format.  By moving information from the code files to text files, the code should become shorter and more general and easier to port to different languages. 
+The HEBI robot config file format is designed to store configuration information about a system in a human-readable, run-time modifiable, cross-API format.  By moving information from the code files to text files, the code should become shorter and more general and easier to port to different languages. 
 
 ## Format
 
-The robot.cfg files are yaml files that contain the following information:
+The robot config files are yaml files that contain the following information:
 1. Names + families of the actuators
 2. Path to an associated HRDF file
 3. Path to any associated gains files
 4. Parameters for any arm plugins that are to be used.
-5. Custom user attributes
+5. Custom user properties
 6. Information about waypoints and paths (future work)
 
 Comments can be added in the yaml file using the `#` character.
 
 ### Names and Families (required)
 
-The `version` attribute refers to the version of the file. It commences with `1.0`. Both `names` and `families` must be present and must either be a singular string or a list of strings. If a single family is provided, it is assigned to all modules within its group. For example:
+The `version` property refers to the version of the file. It commences with `1.0`. Both `names` and `families` fields must be present and must either be a singular string or a list of strings. If a single family is provided, it is assigned to all modules within its group. For example:
 
 ```
 version: 1.0
@@ -87,14 +87,14 @@ Below is a list of the currently supported plugins.
 - Required parameters are marked in **`bold`**.
 - The default value of optional parameters is in `(brackets)`. 
 
-| Type                           | Parameters                                                                        | Description                                                                                                                                                     |
-|--------------------------------|-----------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| **Common to all plugins**         | **`type`** <br> **`name`** <br> `ramp_time (0)` <br> `enabled (true)`     |      Parameters that are used across all the plugins below.  See definitions above and the examples below for more details.                                                                                                                                                           |
-| `GravityCompensationEffort`  | `imu_feedback_index (0)` <br> `imu_frame_index (0)` <br> `imu_rotation_offset (identity)` | Adds efforts to compensate for gravity                                                                                                                          |
-| `DynamicsCompensationEffort` |                                                                                   | Adds efforts to compensate for joint accelerations. The masses are determined from the robot model.                                                             |
-| `EffortOffset`               | **`offset`**                                                                            | Adds efforts to compensate for static offsets due to hardware configurations such as a mechanical spring assist.                                                |
-| `ImpedanceController`        | **`gains_in_end_effector_frame`** <br> **`kp`** <br> **`kd`** <br> `ki (zeros)` <br> `i_clamp (zeros)`   | Adds efforts to result in the desired end-effector impedances.                                                                                                  |
-| `DoubledJoint`              | **`group_family`** <br> **`group_name`** <br> **`index`** <br> `mirror (true)`                        | Copies actuator commands to assist with a second actuator. This simplifies working with double shoulder configurations while treating an arm as a serial chain. |
+| Type                         | Required Fields                                         | Optional Fields                                                                                 | Description                                                                                                                                                     |
+|------------------------------|---------------------------------------------------------|-------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| All Plugins                  | - `type`<br>- `name`                                    | - `ramp_time (0)`<br>- `enabled (true)`                                                         | Fields that are used across all plugins below.  See definitions above and the examples below for more details.                                                  |
+| `GravityCompensationEffort`  |                                                         | - `imu_feedback_index (0)` <br> - `imu_frame_index (0)` <br> - `imu_rotation_offset (identity)` | Adds efforts to compensate for gravity                                                                                                                          |
+| `DynamicsCompensationEffort` |                                                         |                                                                                                 | Adds efforts to compensate for joint accelerations. The masses are determined from the robot model.                                                             |
+| `EffortOffset`               | - `offset`                                              |                                                                                                 | Adds efforts to compensate for static offsets due to hardware configurations such as a mechanical spring assist.                                                |
+| `ImpedanceController`        | - `gains_in_end_effector_frame` <br> - `kp` <br> - `kd` |   - `ki (zeros)` <br> - `i_clamp (zeros)`                                                                                              | Adds efforts to result in the desired end-effector impedances.                                                                                                  |
+| `DoubledJoint`               | - `group_family` <br> - `group_name` <br> - `index`         |   - `mirror (true)`                                                                                              | Copies actuator commands to assist with a second actuator. This simplifies working with double shoulder configurations while treating an arm as a serial chain. |
 
 Examples:
 
