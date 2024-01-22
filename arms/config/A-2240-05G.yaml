@@ -10,12 +10,12 @@ gains:
 
 user_data:
   # Default seed positions for doing inverse kinematics
-  ikSeedPos: [0.01, 1.0, 2.5, 1.5, -1.5]
+  ik_seed_pos: [0.01, 1.0, 2.5, 1.5, -1.5]
 
   # Gripper specific settings
-  hasGripper: true
-  gripperOpenEffort: 1
-  gripperCloseEffort: -5
+  has_gripper: true
+  gripper_open_effort: 1
+  gripper_close_effort: -5
 
 plugins:
 
@@ -36,4 +36,4 @@ plugins:
     type: EffortOffset
     enabled: false
     ramp_time: 2
-    effortOffset: [0, -7, 0, 0, 0]
+    offset: [0, -7, 0, 0, 0]

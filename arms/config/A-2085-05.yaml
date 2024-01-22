@@ -9,7 +9,7 @@ gains:
 
 user_data:
   # Default seed positions for doing inverse kinematics
-  ikSeedPos: [0.01, 1.0, 2.5, 1.5, -1.5]
+  ik_seed_pos: [0.01, 1.0, 2.5, 1.5, -1.5]
 
 plugins:
   - type: GravityCompensationEffort
@@ -27,6 +27,6 @@ plugins:
   # for your specific setup.
   - name: 'gasSpringCompensation'
     type: EffortOffset
-    ramp_time: 2
     enabled: false
-    effortOffset: [0, -7, 0, 0, 0]
+    ramp_time: 2
+    offset: [0, -7, 0, 0, 0]

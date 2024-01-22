@@ -9,7 +9,7 @@ gains:
 
 user_data:
   # Default seed positions for doing inverse kinematics
-  ikSeedPos: [0.01, 1.0, 2.5, 1.5]
+  ik_seed_pos: [0.01, 1.0, 2.5, 1.5]
 
 plugins:
 
@@ -28,5 +28,5 @@ plugins:
   # for your specific setup.
   - name: 'gasSpringCompensation'
     type: EffortOffset
-    effortOffset: [0, -7, 0, 0]
+    offset: [0, -7, 0, 0]
     enabled: false
