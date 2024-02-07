@@ -151,7 +151,7 @@ plugins:
 
   - type: DynamicsCompensationEffort
     name: dynamicsComp
-    ramp_time: 1
+    ramp_time: 5
     enabled: true
 
   - name: 'impedanceController'
