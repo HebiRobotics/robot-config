@@ -7,11 +7,6 @@ hrdf: "../hrdf/A-2085-06.hrdf"
 gains:
   default: "../gains/A-2085-06.xml"
 
-mobile_io:
-  family: "Arm"
-  layout: "../layouts/ex_impedance_control_cartesian.json"
-  name: "mobileIO"
-
 plugins:
 
   - type: GravityCompensationEffort
@@ -29,13 +24,20 @@ plugins:
   # by setting 'enabled' to true. The gains are in the form of
   # [x, y, z, rx, ry, rz]. Setting gains of zero deactivates
   # the corresponding degree of translation or rotation.
-  # These gains correspond to a translational spring which maintains position but not orientation
+  # These gains correspond to the stiffness of the virtual floor
   - type: ImpedanceController
     name: impedanceController
     enabled: true
     ramp_time: 0
     gains_in_end_effector_frame: true
-    kp: [300, 300, 300, 0, 0, 0] # (N/m) or (Nm/rad)
+    kp: [500, 500, 500, 5, 5, 1] # (N/m) or (Nm/rad)
     kd: [5, 5, 5, 0, 0, 0] # (N/(m/sec)) or (Nm/(rad/sec))
-    ki: [20, 20, 20, 0, 0, 0]
-    i_clamp: [10, 10, 10, 0, 0, 0] # max value
+    ki: [20, 20, 20, 0.5, 0.5, 0.5]
+    i_clamp: [10, 10, 10, 1, 1, 1] # max value
+
+user_data:
+
+  mobile_io:
+    family: "Arm"
+    layout: "../layouts/ex_impedance_control_floor.json"
+    name: "mobileIO"

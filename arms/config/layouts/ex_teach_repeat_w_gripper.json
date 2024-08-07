@@ -7,8 +7,8 @@
       "width": 0.15,
       "height": 0.15,
       "parameters": {
-          "text": "Add Waypoint (Stop) 📌",
-          "mode": 0
+          "text": "📌",
+          "mode": "momentary"
       }
   },
   {
@@ -19,8 +19,8 @@
       "width": 0.15,
       "height": 0.15,
       "parameters": {
-          "text": "Add Waypoint (Stop) & Toggle Gripper 🤌",
-          "mode": 0
+          "text": "🤌",
+          "mode": "momentary"
       }
   },
   {
@@ -31,8 +31,8 @@
       "width": 0.15,
       "height": 0.15,
       "parameters": {
-          "text": "Add Waypoint (Flow) ↩️",
-          "mode": 0
+          "text": "🚏",
+          "mode": "momentary"
       }
   },
   {
@@ -43,8 +43,8 @@
       "width": 0.15,
       "height": 0.15,
       "parameters": {
-          "text": "Toggle training/playback 🔄",
-          "mode": 0
+          "text": "🔄",
+          "mode": "momentary"
       }
   },
   {
@@ -55,8 +55,8 @@
       "width": 0.15,
       "height": 0.15,
       "parameters": {
-          "text": "Clear Waypoints 🗑️",
-          "mode": 0
+          "text": "🗑️",
+          "mode": "momentary"
       }
   },
   {
@@ -67,8 +67,8 @@
       "width": 0.15,
       "height": 0.15,
       "parameters": {
-          "text": "Quit ❌",
-          "mode": 0
+          "text": "❌",
+          "mode": "momentary"
       }
   },
   {
