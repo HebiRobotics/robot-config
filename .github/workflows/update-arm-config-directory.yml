@@ -24,7 +24,7 @@ jobs:
     - name: Replace arm's config directory in hebi-python-examples
       run: |
         rm -rf hebi-python-examples/kits/arm/config
-        cp -r robot-config/arms/config hebi-python-examples/kits/arm/config
+        cp -r arms/config hebi-python-examples/kits/arm/config
 
     - name: Commit and Push changes to hebi-python-examples
       run: |
