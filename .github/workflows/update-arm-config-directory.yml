@@ -37,7 +37,7 @@ jobs:
     - name: Create Pull Request for hebi-python-examples
       uses: peter-evans/create-pull-request@v5
       with:
-        token: ${{ secrets.GITHUB_TOKEN }}
+        token: ${{ secrets.HEBI-config-nair }}
         commit-message: "Update config directory from robot-config"
         branch: update-config
         base: gogiputtar/testing_github_actions
