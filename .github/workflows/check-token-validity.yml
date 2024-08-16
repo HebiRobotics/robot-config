@@ -1,0 +1,24 @@
+name: Check Token Validity
+
+on:
+  push:
+      branches:
+        - gogiputtar/testing_github_actions
+  # workflow_dispatch:  # Allows you to manually trigger the workflow
+
+jobs:
+  check-token:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check if token is valid
+        run: |
+          RESPONSE=$(curl -H "Authorization: token ${{ secrets.OTHER_REPO_PAT }}" \
+                          -H "Accept: application/vnd.github.v3+json" \
+                          https://api.github.com/user)
+          if echo "$RESPONSE" | grep -q "Bad credentials"; then
+            echo "Invalid Token"
+            exit 1
+          else
+            echo "Token is valid"
+          fi
