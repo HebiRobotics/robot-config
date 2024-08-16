@@ -32,7 +32,7 @@ jobs:
         git checkout -b update-config
         git add kits/arm/config
         git commit -m "Update config directory from robot-config"
-        git push origin update-config
+        git push https://${{ secrets.HEBI-config-nair }}@github.com/HebiRobotics/hebi-python-examples.git update-config
 
     - name: Create Pull Request for hebi-python-examples
       uses: peter-evans/create-pull-request@v5
