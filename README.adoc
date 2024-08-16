@@ -190,4 +190,4 @@ TBD
 Any entry that is not `names`, `families`, `hrdf`, `gains`, `plugins`, or `user_data` results in an error.
 
 == Full examples
-Please chekc this repository for full examples of a variety of HEBI kits.
+Please check this repository for full examples of a variety of HEBI kits.
