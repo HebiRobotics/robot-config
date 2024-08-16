@@ -7,7 +7,7 @@ on:
 
 jobs:
   update-config:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-latest # Latest Ubuntu
 
     steps:
       - name: Checkout robot-config repo
@@ -18,6 +18,7 @@ jobs:
           git config --global user.name 'Github Actions robot-config auto-bot'
           git config --global user.email 'developer@hebirobotics.com'
       
+      # Python Examples
       - name: Clone hebi-python-examples repo
         env:
           GITHUB_TOKEN: ${{ secrets.OTHER_REPO_PAT }}
@@ -44,8 +45,76 @@ jobs:
         uses: peter-evans/create-pull-request@v5
         with:
           token: ${{ secrets.OTHER_REPO_PAT }}
+          repository: HebiRobotics/hebi-python-examples
           commit-message: "Update config directory from robot-config"
           branch: update-config
-          base: gogiputtar/testing_github_actions
+          base: master
+          title: "Update config directory from robot-config"
+          body: "This PR updates the config directory from the latest version in the robot-config repository."
+
+      - name: Clone hebi-python-examples repo
+        env:
+          GITHUB_TOKEN: ${{ secrets.OTHER_REPO_PAT }}
+        run: |
+          git clone https://github.com/HebiRobotics/hebi-python-examples.git
+          cd hebi-python-examples
+          git config --local credential.helper store
+          echo "https://${{ secrets.OTHER_REPO_PAT }}:@github.com" > ~/.git-credentials
+
+      - name: Replace arm's config directory in hebi-python-examples
+        run: |
+          rm -rf hebi-python-examples/kits/arm/config
+          cp -r arms/config hebi-python-examples/kits/arm/config
+
+      - name: Commit and Push changes to hebi-python-examples
+        run: |
+          cd hebi-python-examples
+          git checkout -b update-config
+          git add kits/arm/config
+          git commit -m "Update config directory from robot-config"
+          git push origin update-config
+
+      - name: Create Pull Request for hebi-python-examples
+        uses: peter-evans/create-pull-request@v5
+        with:
+          token: ${{ secrets.OTHER_REPO_PAT }}
+          repository: HebiRobotics/hebi-python-examples
+          commit-message: "Update config directory from robot-config"
+          branch: update-config
+          base: master
+          title: "Update config directory from robot-config"
+          body: "This PR updates the config directory from the latest version in the robot-config repository."
+      
+      #  C++ Examples
+      - name: Clone hebi-cpp-examples repo
+        env:
+          GITHUB_TOKEN: ${{ secrets.OTHER_REPO_PAT }}
+        run: |
+          git clone https://github.com/HebiRobotics/hebi-cpp-examples.git
+          cd hebi-cpp-examples
+          git config --local credential.helper store
+          echo "https://${{ secrets.OTHER_REPO_PAT }}:@github.com" > ~/.git-credentials
+
+      - name: Replace arm's config directory in hebi-cpp-examples
+        run: |
+          rm -rf hebi-cpp-examples/kits/arm/config
+          cp -r arms/config hebi-cpp-examples/kits/arm/config
+
+      - name: Commit and Push changes to hebi-cpp-examples
+        run: |
+          cd hebi-cpp-examples
+          git checkout -b update-config
+          git add kits/arm/config
+          git commit -m "Update config directory from robot-config"
+          git push origin update-config
+
+      - name: Create Pull Request for hebi-cpp-examples
+        uses: peter-evans/create-pull-request@v5
+        with:
+          token: ${{ secrets.OTHER_REPO_PAT }}
+          repository: HebiRobotics/hebi-cpp-examples
+          commit-message: "Update config directory from robot-config"
+          branch: update-config
+          base: master
           title: "Update config directory from robot-config"
           body: "This PR updates the config directory from the latest version in the robot-config repository."
