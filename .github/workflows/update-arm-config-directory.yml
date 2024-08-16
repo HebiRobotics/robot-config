@@ -27,12 +27,14 @@ jobs:
         cp -r arms/config hebi-python-examples/kits/arm/config
 
     - name: Commit and Push changes to hebi-python-examples
+      env:
+        GITHUB_TOKEN: ${{ secrets.HEBI-config-nair }}
       run: |
         cd hebi-python-examples
         git checkout -b update-config
         git add kits/arm/config
         git commit -m "Update config directory from robot-config"
-        git push https://${{ secrets.HEBI-config-nair }}@github.com/HebiRobotics/hebi-python-examples.git update-config
+        git push origin update-config
 
     - name: Create Pull Request for hebi-python-examples
       uses: peter-evans/create-pull-request@v5
