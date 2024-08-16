@@ -3,7 +3,7 @@ name: Check Token Validity
 on:
   push:
       branches:
-        - gogiputtar/testing_github_actions
+        - main
   # workflow_dispatch:  # Allows you to manually trigger the workflow
 
 jobs:
