@@ -1,0 +1,47 @@
+name: Update Config in Other Repos
+
+on:
+  push:
+    branches:
+      - gogiputtar/testing_github_actions
+
+jobs:
+  update-config:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout robot-config repo
+      uses: actions/checkout@v4
+
+    - name: Set up Git
+      run: |
+        git config --global user.name 'Github Actions robot-config auto-bot'
+        git config --global user.email 'developer@hebirobotics.com'
+    
+    - name: Clone hebi-python-examples repo
+      run: git clone https://github.com/HebiRobotics/hebi-python-examples.git
+    
+    - name: Replace arm's config directory in hebi-python-examples
+      run: |
+        rm -rf hebi-python-examples/kits/arm/config
+        cp -r arms/config hebi-python-examples/kits/arm/config
+
+    - name: Commit and Push changes to hebi-python-examples
+      env:
+        GITHUB_TOKEN: ${{ secrets.HEBI-config-nair }}
+      run: |
+        cd hebi-python-examples
+        git checkout -b update-config
+        git add kits/arm/config
+        git commit -m "Update config directory from robot-config"
+        git push origin update-config
+
+    - name: Create Pull Request for hebi-python-examples
+      uses: peter-evans/create-pull-request@v5
+      with:
+        token: ${{ secrets.HEBI-config-nair }}
+        commit-message: "Update config directory from robot-config"
+        branch: update-config
+        base: gogiputtar/testing_github_actions
+        title: "Update config directory from robot-config"
+        body: "This PR updates the config directory from the latest version in the robot-config repository."
