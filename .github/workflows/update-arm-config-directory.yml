@@ -60,6 +60,8 @@ jobs:
 
       # --- Commit and Push Changes ---
       - name: Commit and Push changes to ${{ matrix.repo }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.OTHER_REPO_PAT }}
         run: |
           cd ${{ matrix.repo }}
           git checkout -b update-config
