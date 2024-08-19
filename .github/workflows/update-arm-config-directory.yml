@@ -3,11 +3,32 @@ name: Update Config in Other Repos
 on:
   push:
     branches:
-      - main
+      - gogiputtar/testing_github_actions
 
 jobs:
-  update-config-python:
+  check-token:
     runs-on: ubuntu-latest
+
+    steps:
+      - name: Check if token is valid
+        run: |
+          RESPONSE=$(curl -H "Authorization: token ${{ secrets.OTHER_REPO_PAT }}" \
+                          -H "Accept: application/vnd.github.v3+json" \
+                          https://api.github.com/user)
+          if echo "$RESPONSE" | grep -q "Bad credentials"; then
+            echo "Invalid Token"
+            exit 1
+          else
+            echo "Token is valid"
+
+  update-config:
+    runs-on: ubuntu-latest
+    needs: check-token
+
+    strategy:
+      fail-fast: false
+      matrix:
+        repo: [hebi-python-examples, hebi-cpp-examples]
 
     steps:
       - name: Checkout robot-config repo
@@ -18,13 +39,13 @@ jobs:
           git config --global user.name 'Github Actions robot-config auto-bot'
           git config --global user.email 'developer@hebirobotics.com'
 
-      # --- Python Examples Update Section ---
-      - name: Clone hebi-python-examples repo
+      # --- Clone Target Repo ---
+      - name: Clone ${{ matrix.repo }} repo
         env:
           GITHUB_TOKEN: ${{ secrets.OTHER_REPO_PAT }}
         run: |
-          git clone https://github.com/HebiRobotics/hebi-python-examples.git
-          cd hebi-python-examples
+          git clone https://github.com/HebiRobotics/${{ matrix.repo }}.git
+          cd ${{ matrix.repo }}
           git config --local credential.helper store
           echo "https://${{ secrets.OTHER_REPO_PAT }}:@github.com" > ~/.git-credentials
           # Delete existing update-config branch if it exists
@@ -32,68 +53,25 @@ jobs:
           git branch -D update-config || true
           git push origin --delete update-config || true
 
-      - name: Replace arm's config directory in hebi-python-examples
+      # --- Replace Config Directory ---
+      - name: Replace arm's config directory in ${{ matrix.repo }}
         run: |
-          rm -rf hebi-python-examples/kits/arm/config
-          cp -r arms/config hebi-python-examples/kits/arm/config
+          rm -rf ${{ matrix.repo }}/kits/arm/config
+          cp -r arms/config ${{ matrix.repo }}/kits/arm/config
 
-      - name: Commit and Push changes to hebi-python-examples
+      # --- Commit and Push Changes ---
+      - name: Commit and Push changes to ${{ matrix.repo }}
         run: |
-          cd hebi-python-examples
+          cd ${{ matrix.repo }}
           git checkout -b update-config
           git add kits/arm/config
           git commit -m "Update config directory from robot-config"
           git push origin update-config
 
-      - name: Create Pull Request for hebi-python-examples
+      # --- Create Pull Request ---
+      - name: Create Pull Request for ${{ matrix.repo }}
         env:
           GITHUB_TOKEN: ${{ secrets.OTHER_REPO_PAT }}
         run: |
-          cd hebi-python-examples
-          gh pr create --title "Update config directory from robot-config" --body "This automated PR updates the config directory from the latest version in the robot-config repository." --head update-config --base master
-
-  update-config-cpp:
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout robot-config repo
-        uses: actions/checkout@v4
-
-      - name: Set up Git
-        run: |
-          git config --global user.name 'Github Actions robot-config auto-bot'
-          git config --global user.email 'developer@hebirobotics.com'
-
-      # --- C++ Examples Update Section ---
-      - name: Clone hebi-cpp-examples repo
-        env:
-          GITHUB_TOKEN: ${{ secrets.OTHER_REPO_PAT }}
-        run: |
-          git clone https://github.com/HebiRobotics/hebi-cpp-examples.git
-          cd hebi-cpp-examples
-          git config --local credential.helper store
-          echo "https://${{ secrets.OTHER_REPO_PAT }}:@github.com" > ~/.git-credentials
-          # Delete existing update-config branch if it exists
-          git fetch origin
-          git branch -D update-config || true
-          git push origin --delete update-config || true
-
-      - name: Replace arm's config directory in hebi-cpp-examples
-        run: |
-          rm -rf hebi-cpp-examples/kits/arm/config
-          cp -r arms/config hebi-cpp-examples/kits/arm/config
-
-      - name: Commit and Push changes to hebi-cpp-examples
-        run: |
-          cd hebi-cpp-examples
-          git checkout -b update-config
-          git add kits/arm/config
-          git commit -m "Update config directory from robot-config"
-          git push origin update-config
-
-      - name: Create Pull Request for hebi-cpp-examples
-        env:
-          GITHUB_TOKEN: ${{ secrets.OTHER_REPO_PAT }}
-        run: |
-          cd hebi-cpp-examples
+          cd ${{ matrix.repo }}
           gh pr create --title "Update config directory from robot-config" --body "This automated PR updates the config directory from the latest version in the robot-config repository." --head update-config --base master
