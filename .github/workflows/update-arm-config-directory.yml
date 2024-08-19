@@ -8,7 +8,7 @@ on:
 jobs:
   check-token:
     runs-on: ubuntu-latest
-
+    
     steps:
       - name: Check if token is valid
         run: |
@@ -20,7 +20,8 @@ jobs:
             exit 1
           else
             echo "Token is valid"
-
+          fi
+          
   update-config:
     runs-on: ubuntu-latest
     needs: check-token
@@ -76,4 +77,3 @@ jobs:
           cd ${{ matrix.repo }}
           gh pr create --title "Update config directory from robot-config" --body "This automated PR updates the config directory from the latest version in the robot-config repository." --head update-config --base master
 
-          
