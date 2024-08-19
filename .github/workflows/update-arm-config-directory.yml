@@ -3,7 +3,7 @@ name: Update Config in Other Repos
 on:
   push:
     branches:
-      - gogiputtar/testing_github_actions
+      - main
 
 jobs:
   check-token:
@@ -21,7 +21,7 @@ jobs:
           else
             echo "Token is valid"
           fi
-          
+
   update-config:
     runs-on: ubuntu-latest
     needs: check-token
