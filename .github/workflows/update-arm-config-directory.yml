@@ -3,7 +3,7 @@ name: Update Config in Other Repos
 on:
   push:
     branches:
-      - main
+      - gogiputtar/testing_github_actions
 
 jobs:
   check-token:
@@ -47,8 +47,6 @@ jobs:
         run: |
           git clone https://github.com/HebiRobotics/${{ matrix.repo }}.git
           cd ${{ matrix.repo }}
-          git config --local credential.helper store
-          echo "https://${{ secrets.OTHER_REPO_PAT }}:@github.com" > ~/.git-credentials
           # Delete existing update-config branch if it exists
           git fetch origin
           git branch -D update-config || true
@@ -76,4 +74,3 @@ jobs:
         run: |
           cd ${{ matrix.repo }}
           gh pr create --title "Update config directory from robot-config" --body "This automated PR updates the config directory from the latest version in the robot-config repository." --head update-config --base master
-
