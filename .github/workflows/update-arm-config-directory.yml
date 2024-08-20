@@ -42,8 +42,8 @@ jobs:
 
       # --- Clone Target Repo ---
       - name: Clone ${{ matrix.repo }} repo
-        env:
-          GITHUB_TOKEN: ${{ secrets.OTHER_REPO_PAT }}
+        # env:
+        #   GITHUB_TOKEN: ${{ secrets.OTHER_REPO_PAT }}
         run: |
           git clone https://github.com/HebiRobotics/${{ matrix.repo }}.git
           cd ${{ matrix.repo }}
