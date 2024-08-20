@@ -67,7 +67,7 @@ jobs:
           git checkout -b update-config
           git add kits/arm/config
           git commit -m "Update config directory from robot-config"
-          git push origin update-config
+          git push https://${{ secrets.OTHER_REPO_PAT }}@github.com/HebiRobotics/${{ matrix.repo }}.git update-config
 
       # --- Create Pull Request ---
       - name: Create Pull Request for ${{ matrix.repo }}
