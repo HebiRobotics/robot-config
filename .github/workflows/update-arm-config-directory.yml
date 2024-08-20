@@ -3,7 +3,7 @@ name: Update Config in Other Repos
 on:
   push:
     branches:
-      - gogiputtar/testing_github_actions
+      - main
 
 jobs:
   check-token:
