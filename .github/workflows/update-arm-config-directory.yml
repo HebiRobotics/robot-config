@@ -50,7 +50,7 @@ jobs:
           # Delete existing update-config branch if it exists
           git fetch origin
           git branch -D update-config || true
-          git push origin --delete update-config || true
+          git push https://${{ secrets.OTHER_REPO_PAT }}@github.com/HebiRobotics/${{ matrix.repo }}.git origin --delete update-config || true
 
       # --- Replace Config Directory ---
       - name: Replace arm's config directory in ${{ matrix.repo }}
@@ -77,4 +77,3 @@ jobs:
           cd ${{ matrix.repo }}
           gh pr create --title "Update config directory from robot-config" --body "This automated PR updates the config directory from the latest version in the robot-config repository." --head update-config --base master
 
-          
