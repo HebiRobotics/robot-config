@@ -50,7 +50,7 @@ jobs:
           # Delete existing update-config branch if it exists
           git fetch origin
           git branch -D update-config || true
-          git push https://${{ secrets.OTHER_REPO_PAT }}@github.com/HebiRobotics/${{ matrix.repo }}.git origin --delete update-config || true
+          git push https://${{ secrets.OTHER_REPO_PAT }}@github.com/HebiRobotics/${{ matrix.repo }}.git --delete update-config || true
 
       # --- Replace Config Directory ---
       - name: Replace arm's config directory in ${{ matrix.repo }}
