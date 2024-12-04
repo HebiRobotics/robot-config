@@ -56,20 +56,21 @@ jobs:
           rm -rf ${{ matrix.repo }}/kits/arm/config
           cp -r arms/config ${{ matrix.repo }}/kits/arm/config
 
-      # --- Commit and Push Changes ---
-      - name: Commit and Push changes to ${{ matrix.repo }}
-        run: |
-          cd ${{ matrix.repo }}
-          git checkout -b update-config
-          git add kits/arm/config
-          git commit -m "Update config directory from robot-config"
-          git push https://${{ secrets.OTHER_REPO_PAT }}@github.com/HebiRobotics/${{ matrix.repo }}.git update-config
-
-      # --- Create Pull Request ---
-      - name: Create Pull Request for ${{ matrix.repo }}
+      # --- Commit and Push Changes and create PR ---
+      - name: Commit and Push changes to ${{ matrix.repo }} and open PR
         env:
           GITHUB_TOKEN: ${{ secrets.OTHER_REPO_PAT }}
         run: |
           cd ${{ matrix.repo }}
-          gh pr create --title "Update config directory from robot-config" --body "This automated PR updates the config directory from the latest version in the robot-config repository." --head update-config --base master
+          git checkout -b update-config
+          CHANGES=$(git diff)
+          if [ -z "$CHANGES" ]
+          then
+            echo "No changes to commit! Exiting!"
+            exit 0
+          fi
+          git add kits/arm/config
+          git commit -m "Update config directory from robot-config"
+          git push https://${{ secrets.OTHER_REPO_PAT }}@github.com/HebiRobotics/${{ matrix.repo }}.git update-config
+          gh pr create --title "Update config directory from robot-config" --body "This automated PR updates the config directory from the latest version in the robot-config repository." --head update-config --base main
 
