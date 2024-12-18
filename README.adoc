@@ -173,8 +173,8 @@ plugins:
   # The naming convention for the `DoubledJoint` plugin would be to add an "A/B" indication to the modules immediately after the `J#` component.   # So, if your arm consists of:
   # `["J1_base", "J2_shoulder", "J3_elbow"]`, you would change replace the 2nd entry in the base set of names with `J2A_shoulder`, and then the    # plugin config would be:
   - type: DoubledJoint
-    group_family: "J2B_shoulder"
-    group_name: "Arm"
+    group_family: J2B_shoulder
+    group_name: Arm
     index: 1
     mirror: true
 ----
