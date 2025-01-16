@@ -53,8 +53,8 @@ jobs:
       # --- Replace Config Directory ---
       - name: Replace arm's config directory in ${{ matrix.repo }}
         run: |
-          rm -rf ${{ matrix.repo }}/kits/arm/config
-          cp -r arms/config ${{ matrix.repo }}/kits/arm/config
+          rm -rf ${{ matrix.repo }}/kits/arms/config
+          cp -r arms/config ${{ matrix.repo }}/kits/arms/config
 
       # --- Commit and Push Changes and create PR ---
       - name: Commit and Push changes to ${{ matrix.repo }} and open PR
@@ -69,7 +69,7 @@ jobs:
             echo "No changes to commit! Exiting!"
             exit 0
           fi
-          git add kits/arm/config
+          git add kits/arms/config
           git commit -m "Update config directory from robot-config"
           git push https://${{ secrets.OTHER_REPO_PAT }}@github.com/HebiRobotics/${{ matrix.repo }}.git update-config
           gh pr create --title "Update config directory from robot-config" --body "This automated PR updates the config directory from the latest version in the robot-config repository." --head update-config --base main
