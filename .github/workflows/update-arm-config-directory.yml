@@ -95,27 +95,28 @@ jobs:
           git config --global user.name 'Github Actions robot-config auto-bot'
           git config --global user.email 'developer@hebirobotics.com'
 
+      # --- Clone Target Repo ---
       - name: Clone hebi_description repo and switch to ${{ matrix.branch }}
         run: |
           git clone https://github.com/HebiRobotics/hebi_description.git
           cd hebi_description
           git fetch origin
-          git checkout ${{ matrix.branch }}
-          # Delete existing update-config branch if it exists
-          git branch -D update-config-${{ matrix.branch }} 2>/dev/null || true
-          git push origin --delete update-config-${{ matrix.branch }} || true
+          git branch -D update-config-${{ matrix.branch }} || true
+          git push https://x-access-token:${{ secrets.ORG_PAT_TOKEN }}@github.com/HebiRobotics/hebi_description.git --delete update-config-${{ matrix.branch }} || true
+          git checkout -b update-config-${{ matrix.branch }} origin/${{ matrix.branch }}
 
+      # --- Replace Config Directory ---
       - name: Replace config directory in hebi_description (${{ matrix.branch }})
         run: |
           rm -rf hebi_description/config/arms
           cp -r arms/config hebi_description/config/arms
 
+      # --- Commit and Push Changes and create PR ---
       - name: Commit and Push changes to hebi_description (${{ matrix.branch }}) and open PR
         env:
-          GITHUB_TOKEN: ${{ secrets.OTHER_REPO_PAT }}
+          GITHUB_TOKEN: ${{ secrets.ORG_PAT_TOKEN }}
         run: |
           cd hebi_description
-          git checkout -b update-config-${{ matrix.branch }}
           CHANGES=$(git diff)
           if [ -z "$CHANGES" ]
           then
@@ -124,8 +125,8 @@ jobs:
           fi
           git add config/arms
           git commit -m "Update config directory from robot-config"
-          git push origin update-config-${{ matrix.branch }}
-          gh pr create --title "Update config directory from robot-config (${{ matrix.branch }})" \
+          git push https://x-access-token:${{ secrets.ORG_PAT_TOKEN }}@github.com/HebiRobotics/hebi_description.git update-config-${{ matrix.branch }}
+          gh pr create --title "Update config directory from robot-config to ${{ matrix.branch }} branch" \
                        --body "This automated PR updates the config directory from the latest version in the robot-config repository." \
-                       --head update-config-${{ matrix.branch }} --base ${{ matrix.branch }} \
-                       --repo HebiRobotics/hebi_description
+                       --head update-config-${{ matrix.branch }} \
+                       --base ${{ matrix.branch }}
