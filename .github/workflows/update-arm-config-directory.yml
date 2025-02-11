@@ -12,7 +12,7 @@ jobs:
     steps:
       - name: Check if token is valid
         run: |
-          RESPONSE=$(curl -H "Authorization: token ${{ secrets.OTHER_REPO_PAT }}" \
+          RESPONSE=$(curl -H "Authorization: token ${{ secrets.ORG_PAT_TOKEN }}" \
                           -H "Accept: application/vnd.github.v3+json" \
                           https://api.github.com/user)
           if echo "$RESPONSE" | grep -q "Bad credentials"; then
@@ -48,7 +48,7 @@ jobs:
           # Delete existing update-config branch if it exists
           git fetch origin
           git branch -D update-config || true
-          git push https://${{ secrets.OTHER_REPO_PAT }}@github.com/HebiRobotics/${{ matrix.repo }}.git --delete update-config || true
+          git push https://${{ secrets.ORG_PAT_TOKEN }}@github.com/HebiRobotics/${{ matrix.repo }}.git --delete update-config || true
 
       # --- Replace Config Directory ---
       - name: Replace arm's config directory in ${{ matrix.repo }}
@@ -59,7 +59,7 @@ jobs:
       # --- Commit and Push Changes and create PR ---
       - name: Commit and Push changes to ${{ matrix.repo }} and open PR
         env:
-          GITHUB_TOKEN: ${{ secrets.OTHER_REPO_PAT }}
+          GITHUB_TOKEN: ${{ secrets.ORG_PAT_TOKEN }}
         run: |
           cd ${{ matrix.repo }}
           git checkout -b update-config
@@ -71,7 +71,7 @@ jobs:
           fi
           git add kits/arms/config
           git commit -m "Update config directory from robot-config"
-          git push https://${{ secrets.OTHER_REPO_PAT }}@github.com/HebiRobotics/${{ matrix.repo }}.git update-config
+          git push https://${{ secrets.ORG_PAT_TOKEN }}@github.com/HebiRobotics/${{ matrix.repo }}.git update-config
           gh pr create --title "Update config directory from robot-config" \
                        --body "This automated PR updates the config directory from the latest version in the robot-config repository." \
                        --head update-config \
