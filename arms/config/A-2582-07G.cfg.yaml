@@ -28,7 +28,7 @@ plugins:
     enabled: true
     ramp_time: 5
 
-  - name: 'DoubleShoulder'
+  - name: "DoubleShoulder"
     type: DoubledJointMirror
     enabled: true
     group_family: ["Arm"]

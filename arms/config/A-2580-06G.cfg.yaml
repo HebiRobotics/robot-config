@@ -31,7 +31,7 @@ plugins:
   # Kits with a gas spring need to add a shoulder compensation torque.
   # It should be around -7 Nm for most kits, but it may need to be tuned
   # for your specific setup.
-  - name: 'gasSpringCompensation'
+  - name: "gasSpringCompensation"
     type: EffortOffset
     enabled: false
     ramp_time: 5
