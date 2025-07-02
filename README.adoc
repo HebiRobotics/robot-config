@@ -21,14 +21,14 @@ Comments can be added in the YAML file using the `#` character.
 
 === Version
 
-The `version` property refers to the version of the file. The current version is `2.0`; changes between versions are listed in the CHANGELOG.adoc file.
+The `version` property refers to the version of the file. The current version is `1.1`; changes between versions are listed in the CHANGELOG.adoc file.
 
 === Names and Families (required)
 Both `names` and `families` fields must be present and must either be a singular string or a list of strings. If a single family is provided, it is assigned to all modules within its group. For example:
 
 [source,yaml]
 ----
-version: 2.0
+version: 1.1
 families: "Arm"
 names: ["J1_base", "J2_shoulder", "J3_elbow", "J4_wrist1", "J5_wrist2", "J6_wrist3"]
 ----

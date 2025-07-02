@@ -5,7 +5,7 @@
 Changes:
 - Initial Release
 
-## v2.0
+## v1.1
 
 Changes:
 - Added 'feedback_frequency' and 'command_lifetime' fields
