@@ -1,0 +1,12 @@
+# Changelog
+
+## v1.0
+
+Changes:
+- Initial Release
+
+## v1.1
+
+Changes:
+- Added 'feedback_frequency' and 'command_lifetime' fields
+

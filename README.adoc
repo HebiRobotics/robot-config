@@ -11,7 +11,9 @@ The robot config files are yaml files that contain the following information:
 . Names + families of the actuators
 . Path to an associated HRDF file
 . Path to any associated gains files
-. Parameters for any arm plugins that are to be used.
+. Feedback frequency for the connection to the robot
+. Command lifetime for the connection to the robot
+. Parameters for any arm plugins that are to be used
 . Custom user properties
 . Information about waypoints and paths (future work)
 
@@ -19,15 +21,14 @@ Comments can be added in the YAML file using the `#` character.
 
 === Version
 
-The `version` property refers to the version of the file. It commences with `1.0`.
-
+The `version` property refers to the version of the file. The current version is `1.1`; changes between versions are listed in the CHANGELOG.adoc file.
 
 === Names and Families (required)
 Both `names` and `families` fields must be present and must either be a singular string or a list of strings. If a single family is provided, it is assigned to all modules within its group. For example:
 
 [source,yaml]
 ----
-version: 1.0
+version: 1.1
 families: "Arm"
 names: ["J1_base", "J2_shoulder", "J3_elbow", "J4_wrist1", "J5_wrist2", "J6_wrist3"]
 ----
@@ -67,6 +68,22 @@ gains: "gains/A-2085-06.xml"
 ----
 
 (Note -- the second example has no default gains, and the third example stores the `gains` file with the `default` key)
+
+=== Feedback Frequency (optional)
+Feedback frequency is used to set the underlying group's feedback frequency.  If not provided, the default frequency is used.  The units are [Hz]
+
+[source,yaml]
+----
+feedback_frequency: 200
+----
+
+=== Command Lifetime (optional)
+Command lifetime is used to set the underlying group's default command lifetime (how long a command sent to the group is active for).  If not provided, the default lifetime is used.  The units are [s]
+
+[source,yaml]
+----
+command_lifetime: 1
+----
 
 === Plugins (optional)
 The `plugins` list allows for storing `Arm` plugin configurations. Each listed plugin is parsed when a loaded `RobotConfig` object is used to create an `Arm` object, and as such only the parameter types will be validated when creating the `RobotConfig` object. Each plugin requires at least a `type` and a `name` parameter, and it is recommended to always set a `ramp_time` (defaults to zero). Plugins can be disabled by setting `enabled` to false, and may have an arbitrary number of additional parameters.
@@ -195,7 +212,7 @@ user_data:
 TBD
 
 === Other entries
-Any entry that is not `names`, `families`, `hrdf`, `gains`, `plugins`, or `user_data` results in an error.
+Any entry that is not `names`, `families`, `hrdf`, `gains`, 'feedback_frequency', 'command_lifetime', `plugins`, or `user_data` results in an error.
 
 == Full examples
 Please check this repository for full examples of a variety of HEBI kits.
