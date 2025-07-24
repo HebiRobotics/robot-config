@@ -40,7 +40,7 @@ The HRDF file is parsed as needed but is assumed relative to the directory of th
 
 [source,yaml]
 ----
-hrdf: "hrdf/A-2085-06.hrdf"
+hrdf: "hrdf/A-2580-06.hrdf"
 ----
 
 === Gains files (optional)
@@ -49,22 +49,22 @@ The gains filenames are retrievable at run time through a loaded RobotConfig obj
 [source,yaml]
 ----
 gains:
-  default: "gains/A-2085-06.xml"
-  soft: "gains/A-2085-06-soft.xml"
+  default: "gains/A-2580-06.xml"
+  soft: "gains/A-2580-06-soft.xml"
 ----
 or
 
 [source,yaml]
 ----
 gains:
-  hard: "gains/A-2085-06.xml"
-  soft: "gains/A-2085-06-soft.xml"
+  hard: "gains/A-2580-06.xml"
+  soft: "gains/A-2580-06-soft.xml"
 ----
 or
 
 [source,yaml]
 ----
-gains: "gains/A-2085-06.xml"
+gains: "gains/A-2580-06.xml"
 ----
 
 (Note -- the second example has no default gains, and the third example stores the `gains` file with the `default` key)
