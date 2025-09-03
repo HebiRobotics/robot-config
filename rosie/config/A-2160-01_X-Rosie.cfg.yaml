@@ -14,6 +14,9 @@ gains:
   arm: "gains/6-dof-arm-gains-rosie.xml"
   gripper: "gains/gripper-gains.xml"
 
+feedback_frequency: 100 # [Hz]
+command_lifetime: 0.25 # [s]
+
 user_data:
   controller_family: "HEBI"
   controller_name: "mobileIO"

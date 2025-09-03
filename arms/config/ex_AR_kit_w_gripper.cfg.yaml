@@ -10,6 +10,9 @@ hrdf: "hrdf/A-2240-06G.hrdf"
 gains:
   default: "gains/A-2240-06.xml"
 
+feedback_frequency: 100 # [Hz]
+command_lifetime: 0.25 # [s]
+
 plugins:
   - type: GravityCompensationEffort
     name: gravComp

@@ -10,6 +10,9 @@ hrdf: "hrdf/A-2582-07.hrdf"
 gains:
   default: "gains/A-2582-07.xml"
 
+feedback_frequency: 100 # [Hz]
+command_lifetime: 0.25 # [s]
+
 user_data:
   # IK Seed positions for inverse kinematics
   ik_seed_pos: [0.01, -1.0, 0.01, 2.0, 1.0, 1.57, 0.01]

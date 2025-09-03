@@ -11,6 +11,9 @@ gains:
   default: "gains/A-2085-05.xml"
   gripper: "gains/A-2080-01.xml"
 
+feedback_frequency: 100 # [Hz]
+command_lifetime: 0.25 # [s]
+
 user_data:
   # IK Seed positions for inverse kinematics
   ik_seed_pos: [0.01, 1.0, 2.5, 1.5, -1.5]
