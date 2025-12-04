@@ -84,7 +84,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        branch: [ros2/humble, ros2/iron, ros2/jazzy]
+        branch: [ros2/humble, ros2/iron, ros2/jazzy, ros2/kilted]
 
     steps:
       - name: Checkout robot-config repo
