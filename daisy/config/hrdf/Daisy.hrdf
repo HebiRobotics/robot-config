@@ -9,7 +9,7 @@
         |          +y <- o
     5 - - - 6             +z
 -->
-<robot version="1.4.0" description="Daisy">
+<robot version="1.6.0" description="Daisy">
     <rigid-body mass="0">
         <output rot="Rz(pi/6)"> <!-- leg 1 -->
             <rigid-body mass="0" output_trans="0.2375 0 0" mesh_path=""/>
