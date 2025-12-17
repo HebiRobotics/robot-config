@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<robot version="1.4.0">
+<robot version="1.6.0">
   <actuator type="X8-9"/>
   <bracket type="X5HeavyLeftInside"/>
   <actuator type="X8-16"/>

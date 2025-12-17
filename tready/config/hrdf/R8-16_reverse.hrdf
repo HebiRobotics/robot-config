@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<robot version="1.4.0" description="Tready Track">
+<robot version="1.6.0" description="Tready Track">
     <!-- reverse R8-16 -->
     <joint axis="-rz"/>
     <rigid-body mass="0.715" com_trans="-0.02396 -0.01610 0.02575" output_trans="0 0 0.051" output_rot="Rx(pi)"
