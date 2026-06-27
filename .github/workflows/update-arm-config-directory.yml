@@ -147,7 +147,7 @@ jobs:
       # --- Clone Target Repo ---
       - name: Clone mobile_io_flutter repo
         run: |
-          git clone https://github.com/HebiRobotics/mobile_io_flutter.git
+          git clone https://${{ secrets.ORG_PAT_TOKEN }}@github.com/HebiRobotics/mobile_io_flutter.git
           cd mobile_io_flutter
           # Delete existing update-config branch if it exists
           git fetch origin
@@ -174,9 +174,9 @@ jobs:
             exit 0
           fi
           git add test/layouts
-          git commit -m "Update config directory from robot-config"
+          git commit -m "Update test layouts from robot-config"
           git push https://${{ secrets.ORG_PAT_TOKEN }}@github.com/HebiRobotics/mobile_io_flutter.git update-config
-          gh pr create --title "Update config directory from robot-config" \
-                       --body "This automated PR updates the config directory from the latest version in the robot-config repository." \
+          gh pr create --title "Update test layouts from robot-config" \
+                       --body "This automated PR updates the test layouts from the latest version in the robot-config repository." \
                        --head update-config \
                        --base main
